@@ -1,15 +1,15 @@
 from fastapi import FastAPI
 from sqlmodel import Session, SQLModel, create_engine, select
-from user import User
+from users import Users
 
 app = FastAPI()
-engine = create_engine("sqlite:///db/user.db")
+engine = create_engine("sqlite:///db/users.db")
 
 @app.get("/")
 async def root():
     results = None
     with Session(engine) as session:
-        statement = select(User)
+        statement = select(Users)
         results = session.exec(statement)
         for u in results:
             print(f"--------------------------")
