@@ -10,7 +10,7 @@ hero_2 = User(name="user2", id=2)
 hero_3 = User(name="user3", id=3)
 
 
-engine = create_engine("sqlite:///user.db")
+engine = create_engine("sqlite:///db/user.db")
 
 
 SQLModel.metadata.create_all(engine)
