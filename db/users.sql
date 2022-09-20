@@ -1,10 +1,12 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-  id integer,
-  name varchar(255)
+  id integer NOT NULL PRIMARY KEY,
+  name varchar(255),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 INSERT INTO users
 VALUES
-  (1, 'Alice'),
-  (2, 'Bob'),
-  (3, 'Carol');
+  (1, 'Alice', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (2, 'Bob', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  (3, 'Carol', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
