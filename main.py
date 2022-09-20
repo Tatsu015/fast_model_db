@@ -17,14 +17,14 @@ async def show():
         statement = select(Users)
         items = session.exec(statement).all()
         return items
-    return []
+    return '/show has error'
 
 
 @app.post("/add")
 async def add(users: list[Users]):
-    print(users)
     with Session(engine) as session:
         for user in users:
             session.add(user)
         session.commit()
-    return "ok"
+        return users
+    return '/add has error'
