@@ -28,3 +28,17 @@ async def add(users: list[Users]):
         session.commit()
         return users
     return '/add has error'
+
+@app.delete("/delete")
+async def delete(ids: list[str]):
+    with Session(engine) as session:
+        deleteds = []
+        for id in ids:
+            statement = select(Users).where(Users.id == id)
+            items = session.exec(statement)
+            user = items.one()
+            session.delete(user)
+            deleteds.append(user)
+            session.commit()
+        return deleteds
+    return '/delete has error'
