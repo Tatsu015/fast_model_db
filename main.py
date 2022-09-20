@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from sqlmodel import Session, SQLModel, create_engine, select
 from users import Users
-from typing import Optional
 
 app = FastAPI()
 engine = create_engine("sqlite:///db/users.db")
@@ -19,3 +18,13 @@ async def show():
         items = session.exec(statement).all()
         return items
     return []
+
+
+@app.post("/add")
+async def add(users: list[Users]):
+    print(users)
+    with Session(engine) as session:
+        for user in users:
+            session.add(user)
+        session.commit()
+    return "ok"
