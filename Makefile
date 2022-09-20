@@ -3,9 +3,15 @@ setup:
 	source bin/activate && \
 	pip install -r requirements.txt && \
 	sqlite3 db/users.db < db/users.sql
+
 dev:
 	uvicorn main:app --reload
-clean:
+
+db_clean:
 	git clean -fdx db
+
+db_create:
+	sqlite3 db/users.db < db/users.sql
+
 full_clean:
 	git clean -fdx

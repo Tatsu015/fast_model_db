@@ -5,6 +5,12 @@ FastAPI, SQLModel, SQLite motion test.
 ```bash
 git clone https://github.com/Tatsu015/fast_model_db.git
 cd fast_model_db
-make setup
-make dev # run application
+python3 -m venv .
+pip install -r requirements.txt
+make db_create
+```
+
+## Start
+```bash
+make dev
 ```
