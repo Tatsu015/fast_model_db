@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from sqlmodel import Session, SQLModel, create_engine, select
 from users import Users
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 engine = create_engine("sqlite:///db/users.db")
@@ -10,17 +12,10 @@ engine = create_engine("sqlite:///db/users.db")
 async def root():
     return "ok"
 
-@app.get("/show")
+@app.get("/show", response_model=list[Users])
 async def show():
-    results = None
     with Session(engine) as session:
         statement = select(Users)
-        results = session.exec(statement)
-        for u in results:
-            print(f"--------------------------")
-            print(f"ID   : {u.id}")
-            print(f"NAME : {u.name}")
-            print(f"type : {type(u)}")
-
-    print(results)
-    return results
+        items = session.exec(statement).all()
+        return items
+    return []
