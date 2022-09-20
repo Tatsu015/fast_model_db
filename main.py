@@ -5,8 +5,13 @@ from users import Users
 app = FastAPI()
 engine = create_engine("sqlite:///db/users.db")
 
+
 @app.get("/")
 async def root():
+    return "ok"
+
+@app.get("/show")
+async def show():
     results = None
     with Session(engine) as session:
         statement = select(Users)
