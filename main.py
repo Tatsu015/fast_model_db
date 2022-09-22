@@ -4,21 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()
-
-
-@app.get("/")
-def root():
-    a = "a"
-    b = "b" + a
-    return {"hello world": b}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-app = FastAPI()
-engine = create_engine("sqlite:///db/users.db")
+url = 'mysql+pymysql://root:samplesample@localhost:3306/sample'
+engine = create_engine(url, echo=True)
 
 
 @app.get("/")
