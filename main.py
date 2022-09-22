@@ -1,6 +1,21 @@
-from fastapi import FastAPI
-from sqlmodel import Session, SQLModel, create_engine, select
 from users import Users
+from sqlmodel import Session, SQLModel, create_engine, select
+import uvicorn
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    a = "a"
+    b = "b" + a
+    return {"hello world": b}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 app = FastAPI()
 engine = create_engine("sqlite:///db/users.db")
@@ -29,6 +44,7 @@ async def add(users: list[Users]):
         return users
     return '/add has error'
 
+
 @app.delete("/delete")
 async def delete(ids: list[str]):
     with Session(engine) as session:
@@ -42,3 +58,7 @@ async def delete(ids: list[str]):
             session.commit()
         return deleteds
     return '/delete has error'
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
