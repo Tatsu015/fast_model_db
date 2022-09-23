@@ -4,9 +4,8 @@ import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()
-url = 'mysql+pymysql://root:samplesample@localhost:3306/sample'
+url = 'mysql+pymysql://root:samplesample@db:3306/sample'
 engine = create_engine(url, echo=True)
-
 
 @app.get("/")
 async def root():
