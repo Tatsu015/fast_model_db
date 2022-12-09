@@ -3,13 +3,11 @@
 // Update the VARIANT arg in docker-compose.yml to pick a Python version
 {
 	"name": "fast_model_db",
-	"dockerComposeFile": "docker-compose.yml",
+	"dockerComposeFile": [
+		"docker-compose.yml"
+	],
 	"service": "app",
 	"workspaceFolder": "/workspace",
-	"runArgs": [
-		"--env-file",
-		".env"
-	],
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
