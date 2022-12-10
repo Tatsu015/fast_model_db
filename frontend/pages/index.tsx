@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useSWR from 'swr'
+import { useSWRConfig } from 'swr'
 
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -46,9 +47,19 @@ const Home: NextPage = () => {
   const [id, setId] = useState<number>(0)
   const [name, setName] = useState<string>("")
 
+  const { mutate } = useSWRConfig();
+
   const onAdd = async () => {
     console.log("Add", { id }, { name })
-    const d = [{ id: { id }, name: { name }, created_at: "2022 - 12 - 10T07: 42: 45.274593", updated_at: "2022-12-10T07:43:39.920Z" }]
+    const d = [
+      {
+        "id": 0,
+        "name": "string",
+        "created_at": "2022-12-10T14:59:33.389762",
+        "updated_at": "2022-12-10T15:00:09.941Z"
+      }
+    ]
+    console.log(d)
     const res = await fetch("/add", {
       method: 'POST', headers: {
         'Content-Type': 'application/json'
@@ -57,19 +68,21 @@ const Home: NextPage = () => {
     })
     const json = await res.json()
     console.log(json)
+    mutate('/show')
   }
 
   const onDelete = async () => {
     console.log("Delete", { id }, { name })
-    const data = [id]
+    const d = [id]
     const res = await fetch("/delete", {
       method: 'DELETE', headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(d)
     })
     const json = await res.json()
     console.log(json)
+    mutate('/show')
   }
 
 
