@@ -54,11 +54,37 @@ const Home: NextPage = () => {
   const [id, setId] = useState<number>(0)
   const [name, setName] = useState<string>("")
 
-  const onAdd = () => {
+  const onAdd = async () => {
     console.log("Add", { id }, { name })
+    const data = [
+      {
+        "id": { id },
+        "name": { name },
+        "created_at": "2022-12-10T07:42:45.274593",
+        "updated_at": "2022-12-10T07:43:39.920Z"
+      }
+    ]
+    const res = await fetch("/add", {
+      method: 'POST', headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const json = await res.json()
+    console.log(json)
   }
-  const onDelete = () => {
+
+  const onDelete = async () => {
     console.log("Delete", { id }, { name })
+    const data = [id]
+    const res = await fetch("/delete", {
+      method: 'DELETE', headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const json = await res.json()
+    console.log(json)
   }
 
 
