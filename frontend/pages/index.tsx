@@ -32,43 +32,28 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    "id": 1,
-    "created_at": "2022-12-10T07:42:45",
-    "updated_at": "2022-12-10T07:43:40",
-    "name": "bbbb"
-  },
-  {
-    "id": 2,
-    "created_at": "2022-12-10T07:42:45",
-    "updated_at": "2022-12-10T07:43:40",
-    "name": "aaaaa"
-  }
-]
+type User = {
+  id: number
+  name: string
+  created_at: string
+  updated_at: string
+}
 
 const Home: NextPage = () => {
   const fetcher = (url: string) => fetch(url).then(r => r.json())
-  const { data, error } = useSWR('/show', fetcher)
+  const { data, error } = useSWR<User[]>('/show', fetcher)
 
   const [id, setId] = useState<number>(0)
   const [name, setName] = useState<string>("")
 
   const onAdd = async () => {
     console.log("Add", { id }, { name })
-    const data = [
-      {
-        "id": { id },
-        "name": { name },
-        "created_at": "2022-12-10T07:42:45.274593",
-        "updated_at": "2022-12-10T07:43:39.920Z"
-      }
-    ]
+    const d = [{ id: { id }, name: { name }, created_at: "2022 - 12 - 10T07: 42: 45.274593", updated_at: "2022-12-10T07:43:39.920Z" }]
     const res = await fetch("/add", {
       method: 'POST', headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(d)
     })
     const json = await res.json()
     console.log(json)
@@ -91,6 +76,7 @@ const Home: NextPage = () => {
   // if (error) return <div>failed to load</div>
   // if (!data) return <div>loading...</div>
 
+  console.log(data)
   return (
     <div>
       <Head>
@@ -108,7 +94,7 @@ const Home: NextPage = () => {
 
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
-          rows={rows}
+          rows={data?.length === undefined ? [] : data}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
