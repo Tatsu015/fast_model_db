@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import { useState } from 'react';
 
 
 const columns: GridColDef[] = [
@@ -50,6 +51,15 @@ const Home: NextPage = () => {
   const fetcher = (url: string) => fetch(url).then(r => r.json())
   const { data, error } = useSWR('/show', fetcher)
 
+  const [id, setId] = useState<number>(0)
+  const [name, setName] = useState<string>("")
+
+  const onAdd = () => {
+    console.log("Add", { id }, { name })
+  }
+  const onDelete = () => {
+    console.log("Delete", { id }, { name })
+  }
 
 
   // if (error) return <div>failed to load</div>
@@ -64,10 +74,12 @@ const Home: NextPage = () => {
       </Head>
 
 
-      <TextField id="outlined-basic" label="ID" variant="outlined" />
-      <TextField id="outlined-basic" label="Name" variant="outlined" />
-      <Button variant="contained" color="success">ADD</Button>
-      <Button variant="contained" color="error">DELETE</Button>
+      <TextField id="outlined-basic" label="ID" variant="outlined" onChange={(event) => { setId(Number(event.target.value)) }} />
+      <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(event) => { setName(event.target.value) }} />
+
+      <Button variant="contained" color="success" onClick={onAdd}>ADD</Button>
+      <Button variant="contained" color="error" onClick={onDelete}>DELETE</Button>
+
       <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
