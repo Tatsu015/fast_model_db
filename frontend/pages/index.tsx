@@ -14,20 +14,20 @@ const columns: GridColDef[] = [
     field: 'name',
     headerName: 'Name',
     width: 150,
-    editable: true,
+    editable: false,
   },
   {
     field: 'created_at',
     headerName: 'Created at',
     width: 200,
-    editable: true,
+    editable: false,
   },
   {
     field: 'updated_at',
     headerName: 'Updated at',
     type: 'number',
     width: 200,
-    editable: true,
+    editable: false,
   },
 ];
 
