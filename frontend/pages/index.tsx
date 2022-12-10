@@ -53,8 +53,8 @@ const Home: NextPage = () => {
     console.log("Add", { id }, { name })
     const d = [
       {
-        "id": 0,
-        "name": "string",
+        "id": id,
+        "name": name,
         "created_at": "2022-12-10T14:59:33.389762",
         "updated_at": "2022-12-10T15:00:09.941Z"
       }
@@ -99,8 +99,8 @@ const Home: NextPage = () => {
       </Head>
 
 
-      <TextField id="outlined-basic" label="ID" variant="outlined" onChange={(event) => { setId(Number(event.target.value)) }} />
       <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(event) => { setName(event.target.value) }} />
+      <TextField id="outlined-basic" label="ID" variant="outlined" onChange={(event) => { setId(Number(event.target.value)) }} />
 
       <Button variant="contained" color="success" onClick={onAdd}>ADD</Button>
       <Button variant="contained" color="error" onClick={onDelete}>DELETE</Button>
