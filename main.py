@@ -3,10 +3,13 @@ from users import Users
 from sqlmodel import Session, create_engine, select
 import uvicorn
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 url = f'mysql+pymysql://{os.getenv("MYSQL_USER")}:{os.getenv("MYSQL_PASSWORD")}@db:3306/{os.getenv("MYSQL_DB")}'
 engine = create_engine(url, echo=True)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 async def root():
@@ -18,6 +21,7 @@ async def show():
     with Session(engine) as session:
         statement = select(Users)
         items = session.exec(statement).all()
+        print(items)
         return items
     return '/show has error'
 
@@ -34,6 +38,7 @@ async def add(users: list[Users]):
 
 @app.delete("/delete")
 async def delete(ids: list[str]):
+    print(ids)
     with Session(engine) as session:
         deleteds = []
         for id in ids:
