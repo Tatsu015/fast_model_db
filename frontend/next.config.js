@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  assetPrefix: "/static/",
+  basePath: "/sataic",
 }
 
 module.exports = nextConfig
