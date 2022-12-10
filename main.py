@@ -1,10 +1,11 @@
+import os
 from users import Users
-from sqlmodel import Session, SQLModel, create_engine, select
+from sqlmodel import Session, create_engine, select
 import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()
-url = 'mysql+pymysql://root:samplesample@db:3306/sample'
+url = f'mysql+pymysql://{os.getenv("MYSQL_USER")}:{os.getenv("MYSQL_PASSWORD")}@db:3306/{os.getenv("MYSQL_DB")}'
 engine = create_engine(url, echo=True)
 
 @app.get("/")
