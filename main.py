@@ -9,7 +9,7 @@ app = FastAPI()
 url = f'mysql+pymysql://{os.getenv("MYSQL_USER")}:{os.getenv("MYSQL_PASSWORD")}@db:3306/{os.getenv("MYSQL_DB")}'
 engine = create_engine(url, echo=True)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="out"), name="static")
 
 @app.get("/")
 async def root():
