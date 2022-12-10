@@ -55,8 +55,8 @@ const Home: NextPage = () => {
       {
         "id": id,
         "name": name,
-        "created_at": "2022-12-10T14:59:33.389762",
-        "updated_at": "2022-12-10T15:00:09.941Z"
+        // "created_at": "2022-12-10T14:59:33.389762",
+        // "updated_at": "2022-12-10T15:00:09.941Z"
       }
     ]
     console.log(d)
