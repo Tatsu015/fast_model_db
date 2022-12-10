@@ -1,5 +1,5 @@
 import os
-from users import Users
+from fast_model_db.users import Users
 from sqlmodel import Session, create_engine, select
 import uvicorn
 from fastapi import FastAPI

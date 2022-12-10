@@ -5,7 +5,7 @@ setup:
 	sqlite3 db/users.db < db/users.sql
 
 dev:
-	uvicorn main:app --reload
+	uvicorn fast_model_db.main:app --reload
 
 db_clean:
 	git clean -fdx db
