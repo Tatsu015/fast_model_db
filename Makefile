@@ -1,17 +1,30 @@
-setup:
-	python3 -m venv . && \
-	source bin/activate && \
-	pip install -r requirements.txt && \
-	sqlite3 db/users.db < db/users.sql
+.PHONY:docker_build
+docker_build:
+	docker build -t fmd/latest .
 
-dev:
-	uvicorn fast_model_db.main:app --reload
+.PHONY:up
+up:
+	docker compose --env-file .devcontainer/.env up
 
-db_clean:
-	git clean -fdx db
+.PHONY:migrate
+migrate:
+	docker exec fast_model_db-app-1 alembic upgrade head
 
-db_create:
-	sqlite3 db/users.db < db/users.sql
 
-full_clean:
-	git clean -fdx
+# setup:
+# 	python3 -m venv . && \
+# 	source bin/activate && \
+# 	pip install -r requirements.txt && \
+# 	sqlite3 db/users.db < db/users.sql
+
+# dev:
+# 	uvicorn fast_model_db.main:app --reload
+
+# db_clean:
+# 	git clean -fdx db
+
+# db_create:
+# 	sqlite3 db/users.db < db/users.sql
+
+# full_clean:
+# 	git clean -fdx

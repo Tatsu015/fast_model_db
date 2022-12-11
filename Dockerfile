@@ -23,4 +23,4 @@ RUN pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requi
 COPY --from=builder /usr/src/app/build ./static/.
 COPY fast_model_db ./fast_model_db/
 COPY alembic.ini ./
-COPY migrations ./migrations/
+
